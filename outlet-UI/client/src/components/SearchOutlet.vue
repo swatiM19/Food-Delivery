@@ -79,6 +79,7 @@ export default {
     let val = await OutletService.fetchOutlet({
      location: [16.3760662,48.1867045]
     });
+    console.log('valllllll', val);
   }
 
 }
