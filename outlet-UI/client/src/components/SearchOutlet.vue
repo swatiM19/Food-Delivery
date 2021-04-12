@@ -6,7 +6,7 @@
       <input type="text"
              placeholder="Enter location"
              class="input"
-             v-model.trim="user.location"/>
+             v-model.trim="location"/>
       <button @click="searchOutlet"> Submit </button>
 
     </div>
@@ -21,13 +21,12 @@ export default {
   name: 'SearchOutlet',
   data () {
     return {
-      user : {
-        location: ''
-      },
+      location: [],
       msg: 'Welcome to Search outlet engine'
     }
   },
   methods: {
+    // could not test this API properly as it was sending The provided API key is invalid. But the api was correct
     async getAddressFrom(lat, long) {
       try {
         let { data } = await axios.get(
@@ -35,7 +34,7 @@ export default {
           lat +
           "," +
           long +
-          "&key={key}"
+          "&key={}"
         );
         if(data.error_message) {
           console.log(data.error_message)
@@ -45,7 +44,7 @@ export default {
           await OutletService.fetchOutlet({
             location: this.user.location
           });
-          console.log('this.user', this.user);
+          console.log('this.user-------', this.user);
         }
       } catch (error) {
         console.log(error.message);
@@ -73,6 +72,14 @@ export default {
     //   {types: ['geocode']}
     // );
   },
+  async created() {
+
+    // just for testing purpose sending the coordinates directly to check if it is inside polygon or not.
+    console.log('helllooooooo');
+    let val = await OutletService.fetchOutlet({
+     location: [16.3760662,48.1867045]
+    });
+  }
 
 }
 </script>

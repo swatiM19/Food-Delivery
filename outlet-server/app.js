@@ -9,7 +9,7 @@ app.use(bodyParser.json());
 app.use(cors());
 
 //Routes
-app.use('/getOutlet', require('./routes/outlet'));
+app.use('/', require('./routes/outlet'));
 
 
 mongoose.connect('mongodb://localhost:27017/', { useNewUrlParser: true }, () =>{
